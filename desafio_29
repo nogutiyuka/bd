@@ -1,0 +1,31 @@
+CREATE DATABASE banco_controle;
+USE banco_controle;
+DROP banco_controle; 					#elimina a base de dados
+DROP IF EXISTS banco_controle; 		#elimina se existir 
+
+CREATE DATABASE banco_controle; #aparece "Error Code: 1007. Can't create database banco_controle': database exists
+
+DROP DATABASE banco_controle; #aparece: "Error Code: 1008. Can't drop database "banco_controle", database doesn't exist"
+
+DROP DATABASE IF EXISTS banco_controle;  #aparece: 1008 Can't drop database 'banco_controle'; database doesn't exist.
+
+CREATE DATABASE banco_controle;
+USE banco_controle;
+
+
+
+DROP DATABASE IF EXISTS professor;
+CREATE DATABASE professor;
+USE professor;
+
+CREATE TABLE professor(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,nome VARCHAR(45) NOT NULL
+,sobrenome VARCHAR(45)
+,cpf VARCHAR(15) NOT NULL
+, dataNascimento DATE
+);
+
+
+
+
