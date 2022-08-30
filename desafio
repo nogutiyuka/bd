@@ -1,0 +1,53 @@
+DROP DATABASE IF EXISTS banco_projeto;
+CREATE DATABASE banco_projeto;
+USE banco_projeto;
+
+CREATE TABLE professor(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,nome VARCHAR(45) NOT NULL
+,sobrenome VARCHAR(45) NOT NULL
+,cpf VARCHAR(15) NOT NULL
+,dataNascimento DATE NOT NULL
+);
+
+INSERT INTO professor (id, nome, sobrenome, cpf, dataNascimento) 
+VALUES (NULL, 'JOÃO', 'SOUZA', '123.456.789-10', '01/01/2000');
+
+INSERT INTO professor
+VALUES (NULL, 'MARIA','SILVA','321.654.987-01', '02/02/2002');
+
+INSERT INTO professor (nome, sobrenome)
+VALUES ('LETICIA', 'BARROS');
+
+SELECT id,nome, sobrenome, cpf, dataNascimento FROM professor;
+
+CREATE TABLE estado(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,nome_estado VARCHAR(45) NOT NULL UNIQUE
+,sigla_estado VARCHAR(2) NOT NULL UNIQUE
+);
+
+INSERT INTO estado (nome_estado, sigla_estado, id_estado)
+VALUES ('PARANÁ', 'PR', 1);
+
+INSERT INTO estado (nome_estado, sigla_estado, id_estado)
+VALUES ('SÃO PAULO', 'SP', 2);
+
+SELECT nome_estado, sigla_estado, id_estado FROM estado;
+
+CREATE TABLE cidade(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,nome_cidade VARCHAR(45) NOT NULL 
+,FOREIGN KEY (estado_id) REFERENCES estado (id)
+);
+
+INSERT INTO cidade (nome, estado_id)
+VALUES ('PARANAVAÍ', 1);
+
+INSERT INTO cidade (nome, estado_id)
+VALUES ('MARINGÁ', 1);
+
+INSERT INTO cidade (nome, estado_id)
+VALUES ('SÃO PAULO', 2);
+
+SELECT nome_cidade FROM cidade;
