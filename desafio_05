@@ -1,0 +1,104 @@
+DROP DATABASE IF EXISTS banco_projeto;
+CREATE DATABASE banco_projeto;
+USE banco_projeto;
+
+DROP TABLE professor;
+CREATE TABLE professor(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,nome VARCHAR(45) NOT NULL
+,sobrenome VARCHAR(45) NOT NULL
+,cpf VARCHAR(15) NOT NULL
+,dataNascimento DATE NOT NULL
+);
+
+INSERT INTO professor (nome, sobrenome, cpf, dataNascimento) 
+VALUES ('JOÃO', 'SOUZA', '123.456.789-10', 01/01/2000);
+
+INSERT INTO professor (nome, sobrenome, cpf, dataNascimento) 
+VALUES ('MARIA','SILVA','321.654.987-01', '02/02/2002');
+
+INSERT INTO professor (nome, sobrenome)
+VALUES ('LETICIA', 'BARROS');
+
+SELECT id,nome, sobrenome, cpf, dataNascimento FROM professor;
+
+CREATE TABLE calendario_pedagogico (
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+, feriados DATE NOT NULL
+,ferias_inicio DATE NOT NULL
+,ferias_fim DATE NOT NULL
+,folgas_inicio DATE NOT NULL
+,folgas_fim DATE NOT NULL
+,hrsAula_inicio TIME NOT NULL
+,hrsAula_fim TIME NOT NULL
+);
+
+INSERT INTO calendario_pedagogico (feriados, ferias_inicio, ferias_fim)
+VALUES ('07/09/2022', '04/07/2022', '15/07/2022');
+
+INSERT INTO calendario_pedagogico (feriados, hrsAula_inicio, hrsAula_fim)
+VALUES ('15/09/2022', '8:00', '18:00');
+
+INSERT INTO calendario_pedagogico (feriados, folgas_inicio, folgas_fim)
+VALUES ('25/12/2022', '07/09/2022', '11/09/2022');
+
+SELECT feriados, ferias_inicio, ferias_fim FROM calendario_pedagogico;
+
+CREATE TABLE turma (
+id_turma INT NOT NULL PRIMARY KEY 
+,carga_horaria VARCHAR(45) NOT NULL
+, presencial VARCHAR(45) NOT NULL
+);
+
+INSERT INTO turma (carga_horaria, presencial, id_turma)
+VALUES ('30 horas', 'sim', 1);
+
+INSERT INTO turma (carga_horaria, presencial, id_turma)
+VALUES ('15 horas', 'não', 2);
+
+INSERT INTO turma (carga_horaria, presencial, id_turma)
+VALUES ('10 horas', 'sim', 3);
+
+SELECT carga_horaria, presencial, id_turma FROM turma;
+
+DROP TABLE estado;
+CREATE TABLE estado(
+estado_id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,nome_estado VARCHAR(45) NOT NULL UNIQUE
+,sigla_estado VARCHAR(2) NOT NULL UNIQUE
+);
+
+INSERT INTO estado (nome_estado, sigla_estado, estado_id)
+VALUES ('PARANÁ', 'PR', 1);
+
+INSERT INTO estado (nome_estado, sigla_estado, estado_id)
+VALUES ('SÃO PAULO', 'SP', 2);
+
+SELECT nome_estado, sigla_estado, id FROM estado;
+
+DROP TABLE cidade;
+CREATE TABLE cidade(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,nome_cidade VARCHAR(45) NOT NULL 
+,FOREIGN KEY (estado_id) REFERENCES estado (id)
+);
+
+INSERT INTO cidade (nome, estado_id)
+VALUES ('PARANAVAÍ', 1);
+
+INSERT INTO cidade (nome, estado_id)
+VALUES ('MARINGÁ', 1);
+
+INSERT INTO cidade (nome, estado_id)
+VALUES ('SÃO PAULO', 2);
+
+SELECT nome_cidade FROM cidade;
+
+CREATE TABLE endereco(
+id INT NOT NULL PRIMARY KEY AUTO_INCREMENT
+,rua_avenida VARCHAR(45) NOT NULL
+,numero INT NOT NULL
+,bairro VARCHAR(45)
+,cep VARCHAR(45)
+,FOREIGN KEY (cidade_id) REFERENCES cidade (id)
+);
